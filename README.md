@@ -1,1 +1,1 @@
-# phy68-gpu-nbody
+# phy68-gpu-nbody-sim
