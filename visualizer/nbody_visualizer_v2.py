@@ -8,7 +8,7 @@ app = QApplication([])
 w = gl.GLViewWidget()
 w.show()
 w.setWindowTitle('Particle Animation Visualizer')
-w.setCameraPosition(distance=40)
+w.setCameraPosition(distance=10)
 
 # Add grid
 g = gl.GLGridItem()
