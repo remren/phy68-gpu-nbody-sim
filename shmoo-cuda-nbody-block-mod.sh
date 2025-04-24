@@ -1,5 +1,5 @@
-SRC=nbody-block.cu
-EXE=nbody-block
+SRC=nbody-block-mod.cu
+EXE=nbody-block-mod
 
 module load cuda/10.0
 module load gcc/7.3.0
