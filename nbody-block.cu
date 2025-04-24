@@ -9,8 +9,11 @@
 typedef struct { float4 *pos, *vel; } BodySystem;
 
 void randomizeBodies(float *data, int n) {
-  for (int i = 0; i < n; i++) {
-    data[i] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f;
+  for (int i = 0; i < n; i += 4) {
+    data[i] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f;     
+    data[i + 1] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f; 
+    data[i + 2] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f; 
+    data[i + 3] = 1.0f; 
   }
 }
 
@@ -33,14 +36,17 @@ void bodyForce(float4 *p, float4 *v, float dt, int n) {
         float distSqr = dx*dx + dy*dy + dz*dz + SOFTENING;
         float invDist = rsqrtf(distSqr);
         float invDist3 = invDist * invDist * invDist;
-
-        Fx += dx * invDist3; Fy += dy * invDist3; Fz += dz * invDist3;
+        
+        Fx += dx * invDist3 * tpos.w;
+        Fy += dy * invDist3 * tpos.w;
+        Fz += dz * invDist3 * tpos.w;
       }
       __syncthreads();
     }
 
     v[i].x += dt*Fx; v[i].y += dt*Fy; v[i].z += dt*Fz;
   }
+  
 }
 
 int main(const int argc, const char** argv) {
@@ -85,7 +91,8 @@ int main(const int argc, const char** argv) {
     printf("Iteration %d: %.3f seconds\n", iter, tElapsed);
 #endif
   }
-  double avgTime = totalTime / (double)(nIters-1); 
+  double avgTime = totalTime / (double)(nIters-1);
+
 
 #ifdef SHMOO
   printf("%d, %0.3f\n", nBodies, 1e-9 * nBodies * nBodies / avgTime);
