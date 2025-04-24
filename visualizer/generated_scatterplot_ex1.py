@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication
 import pyqtgraph.opengl as gl
+import pyqtgraph as pg
 import numpy as np
 
 app = QApplication([])
@@ -8,6 +9,7 @@ w = gl.GLViewWidget()
 w.show()
 w.setWindowTitle('Persistent Scatter Plot Example')
 w.setCameraPosition(distance=40)
+
 
 # Add grid
 g = gl.GLGridItem()
@@ -26,6 +28,7 @@ for point in range(10):
         color=(1, 0, 0.5, 0.8),  # RGBA - purple with slight transparency
         size=7,  # Slightly larger size
         pxMode=True,
+        # texture=texture,
         glOptions='opaque'  # Ensure points are rendered properly
     )
     w.addItem(ScatterPlotItems[point])
@@ -38,34 +41,34 @@ color[:, :, 2] = 0.5  # Blue channel
 color[:, :, 3] = 0.8  # Alpha channel (consistent opacity)
 
 
-# def update():
-#     global color
-#     # Create a copy of colors to modify
-#     new_color = color.copy()
-#
-#     # Create pulsing effect without making points disappear
-#     phase = QTimer().remainingTime() % 2000 / 2000  # 2 second cycle
-#     pulse = 0.3 + 0.5 * (1 + np.sin(2 * np.pi * phase))  # 0.3-0.8 opacity range
-#
-#     # Apply pulse to all points
-#     new_color[:, :, 3] = pulse
-#
-#     # Update colors for all scatter plots
-#     for point in range(10):
-#         ScatterPlotItems[point].setData(color=new_color[:, point, :])
-
-
-# In the update function:
 def update():
     global color
-    # Create varying opacity that never goes to zero
-    phase = QTimer().remainingTime() % 1000 / 1000
-    for i in range(10):
-        pulse = 0.5 + 0.3 * np.sin(2 * np.pi * phase + i * 0.2)
-        color[:, i, 3] = pulse
+    # Create a copy of colors to modify
+    new_color = color.copy()
 
+    # Create pulsing effect without making points disappear
+    phase = QTimer().remainingTime() % 2000 / 2000  # 2 second cycle
+    pulse = 0.3 + 1 * (1 + np.sin(2 * np.pi * phase))  # 0.3-0.8 opacity range
+
+    # Apply pulse to all points
+    new_color[:, :, 3] = pulse
+
+    # Update colors for all scatter plots
     for point in range(10):
-        ScatterPlotItems[point].setData(color=color[:, point, :])
+        ScatterPlotItems[point].setData(color=new_color[:, point, :])
+
+
+# # In the update function:
+# def update():
+#     global color
+#     # Create varying opacity that never goes to zero
+#     phase = QTimer().remainingTime() % 1000 / 1000
+#     for i in range(10):
+#         pulse = 0.5 + 0.3 * np.sin(2 * np.pi * phase + i * 0.2)
+#         color[:, i, 3] = pulse
+#
+#     for point in range(10):
+#         ScatterPlotItems[point].setData(color=color[:, point, :])
 
 
 t = QTimer()
