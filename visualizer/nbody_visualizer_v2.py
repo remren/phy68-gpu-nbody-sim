@@ -15,10 +15,13 @@ g = gl.GLGridItem()
 w.addItem(g)
 
 # Load particle data
-loader = pl.ParticleDataLoader("first_large_mass_particle_positions.bin")
+loader = pl.ParticleDataLoader("mass_test_particle_positions.bin")
 current_frame = 0
 total_frames = loader.nIters  # Assuming your loader has nIters property
 total_bodies = loader.nBodies
+total_masses = loader.nMasses
+
+print(total_masses)
 
 color_bodies = np.empty((total_bodies, 4))
 for i in range(total_bodies):

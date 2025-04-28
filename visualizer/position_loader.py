@@ -9,7 +9,8 @@ class ParticleDataLoader:
         self.nIters = np.frombuffer(self.file.read(4), dtype=np.int32)[0]
         self.nMasses = np.empty(shape=self.nBodies, dtype=np.int32)
         for i in range(self.nBodies):
-            self.nMasses[i] = np.frombuffer(self.file.read(4), dtype=np.int32)[0]
+            self.nMasses[i] = np.frombuffer(self.file.read(4), dtype=np.float32)[0]
+            print(f'{self.nMasses[i]}')
         self.current_frame = 0
 
     def get_frame(self, frame_num):
@@ -45,4 +46,5 @@ if __name__ == '__main__':
     #         if frame_0[i][j] != 1.0:
     #             print(f'starting i: {i}, {j}')
 
-    print(f'test:{frame_0}')
+    print(f'test masses: {loader.nMasses}')
+    # print(f'test:{frame_0}')
