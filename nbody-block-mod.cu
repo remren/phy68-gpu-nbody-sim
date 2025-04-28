@@ -89,7 +89,7 @@ int main(const int argc, const char** argv) {
     fwrite(&nBodies, sizeof(int), 1, output_file);
     fwrite(&nIters, sizeof(int), 1, output_file);
     for (int i = 0; i < 8*nBodies; i += 4) {
-        fwrite(&buf[i + 3].w, sizeof(float), 1, file); // save all masses, same logic as randomizeBodies
+        fwrite(&buf[i + 3].w, sizeof(float), 1, output_file); // save all masses, same logic as randomizeBodies
     }
 
     for (int iter = 1; iter <= nIters; iter++) {
