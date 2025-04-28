@@ -24,7 +24,7 @@ void randomizeBodies(float *data, int n) {
         data[i + 3] = 1.0f;
     }
     // Make the 0 element mass larger than others.
-    data[3] = 1000000000.0f;
+        data[3] = 1e30;
 }
 
 __global__
