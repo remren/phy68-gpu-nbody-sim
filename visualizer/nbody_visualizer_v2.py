@@ -18,11 +18,19 @@ w.addItem(g)
 loader = pl.ParticleDataLoader("first_large_mass_particle_positions.bin")
 current_frame = 0
 total_frames = loader.nIters  # Assuming your loader has nIters property
+total_bodies = loader.nBodies
+
+color_bodies = np.empty((total_bodies, 4))
+for i in range(total_bodies):
+    color_bodies[i] = (1, 0, 0.5, 0.8)
+
+color_bodies[0] = (0, 1, 0, 0.8) # set the first body to green
 
 # Create initial scatter plot
 scatter = gl.GLScatterPlotItem(
     pos=loader.get_frame(0),
-    color=(1, 0, 0.5, 0.8),  # Initial color (purple with transparency)
+    # color=(1, 0, 0.5, 0.8),  # Initial color
+    color=color_bodies,
     size=7,
     pxMode=True,
     glOptions='opaque'

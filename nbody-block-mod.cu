@@ -12,7 +12,7 @@ typedef struct { float4 *pos, *vel; } BodySystem;
 void save_positions(const float4* positions, int nBodies, int timestep, FILE* file) {
     fwrite(&timestep, sizeof(int), 1, file);
     for (int i = 0; i < nBodies; i++) {
-        fwrite(&positions[i].x, sizeof(float), , file); // Save only x,y,z, and w
+        fwrite(&positions[i].x, sizeof(float), file); // Save only x,y,z
     }
 }
 
@@ -85,9 +85,12 @@ int main(const int argc, const char** argv) {
         return 1;
     }
 
-    // Write header (nBodies, nIters)
+    // Write header (nBodies, nIters, nMasses)
     fwrite(&nBodies, sizeof(int), 1, output_file);
     fwrite(&nIters, sizeof(int), 1, output_file);
+    for (int i = 0; i < 8*nBodies; i += 4) {
+        fwrite(&buf[i].x, sizeof(float), file); // save all masses, same logic as randomizeBodies
+    }
 
     for (int iter = 1; iter <= nIters; iter++) {
         StartTimer();
