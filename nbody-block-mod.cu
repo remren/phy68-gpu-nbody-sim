@@ -12,7 +12,7 @@ typedef struct { float4 *pos, *vel; } BodySystem;
 void save_positions(const float4* positions, int nBodies, int timestep, FILE* file) {
     fwrite(&timestep, sizeof(int), 1, file);
     for (int i = 0; i < nBodies; i++) {
-        fwrite(&positions[i].x, sizeof(float), file); // Save only x,y,z
+        fwrite(&positions[i].x, sizeof(float), , file); // Save only x,y,z
     }
 }
 
