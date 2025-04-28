@@ -57,7 +57,7 @@ def update():
     scatter.setData(pos=new_positions)
 
     # Update Window
-    w.setCameraPosition(distance=6 + 10 * current_frame / total_frames)
+    w.setCameraPosition(distance=6 + 12 * current_frame / total_frames)
 
     # Update window title with frame info
     w.setWindowTitle(f'Particle Animation Visualizer - Frame {current_frame}/{total_frames}')
