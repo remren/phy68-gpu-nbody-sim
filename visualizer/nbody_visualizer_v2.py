@@ -60,3 +60,4 @@ t.start(30)  # ~33 FPS
 
 if __name__ == '__main__':
     app.exec_()
+    loader.close()
