@@ -21,7 +21,7 @@ void randomizeBodies(float *data, int n) {
         data[i] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f;
         data[i + 1] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f;
         data[i + 2] = 2.0f * (rand() / (float)RAND_MAX) - 1.0f;
-        data[i + 3] = 1.0f;
+        data[i + 3] = 1e10 * (rand() / (float)RAND_MAX) - 1.0f;
     }
     // Make the 0 element mass larger than others.
         data[3] = 1e30;
