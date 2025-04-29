@@ -16,7 +16,7 @@ w.addItem(g)
 
 # Load particle data
 # loader = pl.ParticleDataLoader("mass_test_particle_positions.bin")
-loader = pl.ParticleDataLoader("mt4_mass_particle_positions.bin")
+loader = pl.ParticleDataLoader("large_n_iter=1000_particle_positions.bin")
 current_frame = 0
 total_frames = loader.nIters  # Assuming your loader has nIters property
 total_bodies = loader.nBodies
@@ -29,7 +29,7 @@ for i in range(total_bodies):
 color_bodies[0] = (0, 1, 0, 0.8) # set the first body to green
 size_bodies = np.empty(total_bodies)
 for i in range(total_bodies):
-    size_bodies[i] = 1.5 * total_masses[i] / 1e9
+    size_bodies[i] = 0.5 * total_masses[i] / 1e9
 size_bodies[0] = 15
 
 # Create initial scatter plot
@@ -47,7 +47,7 @@ w.addItem(scatter)
 
 
 def update():
-    global current_frame
+    global current_frame, zoom_stop_frame
 
     # Get next frame's positions
     current_frame = (current_frame + 1) % total_frames
@@ -57,7 +57,9 @@ def update():
     scatter.setData(pos=new_positions)
 
     # Update Window
-    w.setCameraPosition(distance=6 + 12 * current_frame / total_frames)
+    zoom_stop_frame = 300
+    if current_frame < zoom_stop_frame:
+        w.setCameraPosition(distance=10 - 5 * current_frame / zoom_stop_frame)
 
     # Update window title with frame info
     w.setWindowTitle(f'Particle Animation Visualizer - Frame {current_frame}/{total_frames}')
