@@ -63,7 +63,7 @@ int main(const int argc, const char** argv) {
     if (argc > 1) nBodies = atoi(argv[1]);
 
     const float dt = 0.01f;
-    const int nIters = 1000;
+    const int nIters = 10000;
 
     int bytes = 2*nBodies*sizeof(float4);
     float *buf = (float*)malloc(bytes);
