@@ -9,6 +9,6 @@ nvcc -arch=sm_35 -ftz=true -I../ -o $EXE $SRC -DSHMOO
 
 echo $EXE
 
-K=100
+K=131072
 
 ./$EXE $K
